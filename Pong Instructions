@@ -1,0 +1,94 @@
+Pong
+A two-player networked game in which a ball is batted back and forth between 2 paddles.
+Academic Honesty
+Greenville Tech’s Academic Honesty policies will be used to enforce cheating.  Here is a partial list of ways you can cheat:
+View relevant YouTube videos.
+Exchange relevant files with anyone not on your team.
+Download similar games and use them for inspiration or to steal their code.
+You are expected to design the program and write the code yourself.  Gaining help from other sources is unethical and will be rewarded accordingly, including expulsion.  Please note that I have downloaded and examined some internet games written in Matlab after finishing my game and I’ll be looking for similarities with your game.
+Rules
+Whoever serves first is determined randomly.
+The person serving continues to serve until this person misses the ball.
+The person serving gains a point if the other person fails to hit the ball.
+If the person who served fails to hit the ball, no one gets a point.  The serve moves to the other player.
+Whoever reaches 10 points wins the game.
+Technical Requirements
+Two copies of Matlab (or Octave) will be used.  One player will play “player1” and the other plays “player2”.   The player playing the left paddle launches a function named “player1” to start the game.  The player playing the right paddle launches a function named “player2” to enter the game.  It should not matter who starts their program first:  the other program should wait.
+The person who serves should be randomly selected and indicated on the screen in some way.
+“player1” controls ball movement.  If “player1” is serving, “player1” clicks the left mouse button which launches the ball and communicates this to “player2”.  If “player2” wants to serve, “player2” clicks the left mouse button and this sends a request to “player1” to launch a ball from the right paddle.  “player1” communicates ball position via a file to “player2”.
+Your code must run on Matlab in the lab.
+The game window for both “player1” and “player2” must be identical.  The sole exception is that player1’s mouse controls the left paddle and player2’s mouse controls the right paddle.
+The game window must display one ball and two paddles.  The paddles may move vertically, but not horizontally.  The paddles are located at the extreme left and right edges of the game window.
+The game window must display:
+The current score
+Who owns the serve
+Upon winning: an indication that the game is over and the score.
+The ball must be round.  Its size is up to you.
+The ball must be launched from the current position of the server’s paddle.  The direction the ball takes when served is totally up to you.  It may be random.  You may choose to put some “English” on the ball in some way.  It’s up to you.
+The ball’s speed may be the same every launch, or you may change it to make the game more interesting.  It may even be random.
+After the ball leaves the server’s paddle, it must follow the laws of physics, assuming the ball moves in a horizontal plane.  This means the ball moves in a straight line until hitting something.  After hitting something, its speed parallel to the surface it strikes is unchanged.  However, its speed perpendicular to the surface after impact is the opposite (negative) of what it was before impact.
+The paddle width and height is up to you.  Adjust it to make the game more interesting.
+Assume that some directory is visible to both players.  Both players change their Matlab (or Octave) working directory to this directory before launching the game.
+The game continues until the game is over or one of the players hits ‘q’ on the keyboard.  ‘q’ should just exit the program:  the other player doesn’t need to be informed if a player quits.  You can communicate that if you want, but it’s not required.
+Nothing should happen if the player who does not possess the serve tries to serve.  Just ignore this player!
+All functions must be documented: an H1 line, input arguments, output arguments, and notes.
+Communications between programs must be done using fprintf and fscanf.
+Octave
+The example code that I am providing you was written in Octave, but runs identically in Matlab.  During development you may find that you need to work away from campus where Matlab isn’t available.  You may also find it advantageous to have copies of your program on two separate computers, but have only one copy of Matlab.  Octave is an elegant solution to this problem.  If your code runs on both Matlab and Octave, then you won’t need to pay for another copy of Matlab. 
+My Home Setup
+I have two computers at home.  My wife’s machine has Matlab, while mine has Octave.  She connects to our router using 802.11n Wi-Fi, while I connect using a wire.  The game is very playable, but a bit jumpy compared to running two copies of Matlab (or Octave) on the same computer.  I don’t have another copy of Matlab available, so getting a copy of Octave was the only way we could play.
+Truths, Facts, Hints, Suggestions, Etc.
+Most of the communication between programs is one way.  For example, “player1” tells “player2” where the ball is.  “player1” tells “player2” where the left paddle is and “player2” tells “player1” where the right paddle is.  For one-way communication, the easiest thing is for one party to open a file with “w” and the other with “r” and just leave it open until the game is over.  The only requirement is to call frewind() after the read or write is done to reposition the file pointer for the next read or write.
+A small amount of communication might be two-way, which means that a program will read the file some of the time and write to it some of the time.  The easiest solution here is to open it with ‘w’ or ‘r’, write or read it, then immediately close it.  Make sure both programs won’t be trying to write to the file at the same time or you’ll have problems!!!!  Note that since player1 and player2 are running asynchronously, in many cases it might be impossible to guarantee only one program will have a file opened for writing.  If you can’t guarantee this, then don’t use a file for two-way communication.  One-way is safer and easier.
+You don’t need an if statement to detect if the mouse has moved.  The mouse position will be updated automatically as the mouse is moved.
+If a mouse button was pressed, a function will be called automatically and that function can set a global variable.
+If a key on the keyboard was pressed, a function will be called automatically and that function can set a global variable.
+You can open a file in one program with ‘w+’ or ’w’ and in the other with ‘r’ and keep it open, writing and reading using ’w+’  ( or writing with ‘w’) and reading  with ‘r’.  The file doesn’t need to be closed after a read or write, just rewound.  This doesn’t have to be done synchronously.
+Octave won’t run newly created files unless you type : path (path) in the command window or restart Octave.
+Player2 has no way of knowing whose serve it is, whether the ball is in play and what the score is.  Player1 knows all these things.  Therefore, we need a one way conduit from player1 to player2 to communicate this information.
+Player2 needs to communicate two things to player1: its paddle location and request to launch a ball.
+It does not work to have a file open with ‘w+’ from 2 programs and read/write from both programs.  The best way to do this is to close the file after and reopen it before each file access.
+I strongly recommend you limit global variable use to detecting mouse moves, mouse clicks and keys pressed.
+If you add functionality beyond left clicks to serve and ‘q’ to quit, this should be displayed on the screen when the user enters the game.
+Step One – 10%
+Your first task is to write a simplified version of player1, shown in Figure 1.  This program will allow you to move an object on the screen using a mouse.  The title should read: “Type q to Quit”.  Typing q will cause the program to quit.  I have provided you with the functions initialize_graphics, print_title, get_mouse_position, draw_object keyDownListener, mouseDownListener, mouseMoveListener and mouseUpListener.  Your job is to write player1, which will call these functions according to Figure 1.  You are finished if you see an object which will follow the mouse and if this object will stop moving when you type q.  player1’s function prototype is function [] = player1(), which means it is a function with no input or output arguments.  Submit a .zip file containing everything needed to run.
+Grading:
+10%       all necessary files present after extracting from .zip
+40%       object follows the mouse
+40%       q ends the program
+10%       title printed which says “type q to quit”
+ 
+Step Two – 20%
+Your next task is to get two functions working: player1 and player2.  player1 and player2 run on 2 copies of Matlab, either on the same computer or on different computers across a network.  Mouse movement in the player1 window is displayed in the player2 window.  It should be possible to start either player1 or player2 first.  Either program should be able to wait on the other without causing a problem.  q should work in either window, which will stop the program in that window without affecting the other window.  Assume that player1 and player2 are both launched in the same directory and that all the program files are in this directory.  Both windows should look exactly the same at all times.  Submit a .zip file containing everything needed to run.
+Grading:
+10%       all necessary files present after extracting from .zip
+20%       Code reuse
+10%       documentation: see loan.m in Chapter 7: H1 line, Input Arguments, Output Arguments, Notes
+10%       player1 can be started before player2
+10%       player2 can be started before player1
+10%       player1’s paddle works in both windows
+10%       q can be typed in player1 without crashing either program
+10%       q can be typed in player2 without crashing either program
+10%       understandable variable names
+ 
+Step Three – 30%
+Both windows must display two paddles.  Mouse movement in the player1 window must move the left paddle in both windows.  Mouse movement in the player2 window must move the right paddle in both windows.  Both windows should look exactly the same at all times.  Submit a .zip file containing everything needed to run.
+10%       all necessary files present after extracting from .zip
+20%       Code reuse
+10%       documentation: see loan.m in Chapter 7: H1 line, Input Arguments, Output Arguments, Notes
+10%       player1 can be started before player2
+10%       player2 can be started before player1
+10%       player1’s paddle works in both windows
+10%       player2’s mouse works in both windows
+10%       q can be typed in player1 without crashing either program
+10%       q can be typed in player2 without crashing either program
+ 
+Step Four – 39%
+This is the finished program.  All the requirements above must be fulfilled.  Submit a .zip file containing all necessary files.
+Peer Evaluation
+You get 1% by turning in your peer evaluation of yourself and your teammates.  Furthermore, the weighted sum of your Step 1, Step 2, Step 3, Step 4 and Peer Evaluation grades is multiplied by the average peer evaluation you receive from members of your group.  The Peer Evaluation is just a number from 0 to 100 for yourself and each of your teammates.  Everyone will turn in a Peer Evaluation to their own Blackboard Project Peer Evaluation assignment.
+Teams
+You choose your teammates.  Teams having 2 or 3 people are acceptable.  Choose a team captain who will turn in the source code for the team.  The team captain should email me a list of the team members.  I recommend creating a Google Sites Project so that you and your team can have a place to store source code, a calendar and a to-do list.  Highly recommended.  See https://sites.google.com/site/projectwikitemplate_en/.  It’s pretty easy to get this working.  Keep this password protected so that other groups can’t steal your source code, which would be an ethics violation for you as well as them.
+
+
+ 
