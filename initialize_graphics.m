@@ -24,7 +24,7 @@ HERO = [HERO_SHAPE(1,:) .* xScale; HERO_SHAPE(2,:) .* yScale];
 
 heroPos = [100 150];
 fig = figure;
-set(fig,'color','white');
+set(fig,'color','black');
 set(fig,'Resize','off');
 pointer=NaN(16,16);
 pointer(4,1:7) = 2;
@@ -39,11 +39,11 @@ set(fig,'WindowButtonUpFcn', @mouseUpListener);
 set(fig,'WindowButtonMotionFcn', @mouseMoveListener);
 mainAxis = axes();
 %set color for the court, hide axis ticks.
-AXIS_COLOR = 'blue'; %the sky
+AXIS_COLOR = [0, 0, 0]; %the sky
 set(mainAxis, 'color', AXIS_COLOR, 'YTick', [], 'XTick', []);
 
 %handle for displaying the score
-axisTitle = title('Press Q to Quit');
+axisTitle = title('');
 font = 'Courier';
 large_text = 20;
 green = [.1, .7, .1];
@@ -53,17 +53,8 @@ set(axisTitle,'fontsize', large_text)
 set(axisTitle, 'Color', title_color);
 
 %set size of the graphics window
-axis([0 100 0 100]);
+axis([0 200 0 324]);
 axis off;
 heroPlot = patch(NaN,NaN,'b');
 set(heroPlot,'LineWidth', 2);
 set(heroPlot,'EdgeColor', 'red');
-
-%pongball
-pball = line(20,50,'marker','.','markersize', 60,'color','red');
-
-%player1 paddle
-block = line( 'color', 'green', 'linewidth',65);
-
-
-
