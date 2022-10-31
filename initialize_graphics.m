@@ -1,28 +1,28 @@
-function [mainAxis, HERO, heroPlot, HERO_W, HERO_H, axisTitle] = initialize_graphics()
+function [mainAxis, PAD, pongPlot, PAD_W, PAD_H, axisTitle] = initialize_graphics()
 %initialize_graphics creates the graphic environment for the hero
 %Input arguments
 %   none
 %Output arguments
 %   mainAxis - handle to the axes object
-%   HERO - outline of the hero
-%   heroPlot - patch object for the hero
-%   HERO_W - width of the hero
-%   HERO_H - height of the hero
+%   PAD - outline of the paddle
+%   heroPlot - patch object for the paddle
+%   PAD_W - width of the paddle
+%   PAD_H - height of the paddle
 %   handle to the axis title
 
-HERO_START_Y = 20; %hero start position
-HERO_W = 15; %hero width
-HERO_H = 20; %hero height
-HERO_SHAPE = [1 0 1 2 3 4 3 1; ... %x values
-  0 1 2 4 2 1 0 0];    %y values
-xScale = HERO_W / max(HERO_SHAPE(1,:));
-yScale = HERO_H / max(HERO_SHAPE(2,:));
+PADDLE_START_Y = 50; %paddle start position
+PAD_W = 3; %paddle width
+PAD_H = 20; %paddle height
+PAD_SHAPE = [0 0 0 0 1 1 1 1; ... %x values
+  0 1 2 3 3 2 1 0];    %y values
+xScale = PAD_W / max(PAD_SHAPE(1,:));
+yScale = PAD_H / max(PAD_SHAPE(2,:));
 
 %coordinats for drawing hero at 0,0.
 %scale hero so that he's HERO_W wide and HERO_H tall
-HERO = [HERO_SHAPE(1,:) .* xScale; HERO_SHAPE(2,:) .* yScale];
+PAD = [PAD_SHAPE(1,:) .* xScale; PAD_SHAPE(2,:) .* yScale];
 
-heroPos = [100 150];
+
 fig = figure;
 set(fig,'color','black');
 set(fig,'Resize','off');
@@ -42,7 +42,7 @@ mainAxis = axes();
 AXIS_COLOR = [0, 0, 0]; %the sky
 set(mainAxis, 'color', AXIS_COLOR, 'YTick', [], 'XTick', []);
 
-%handle for displaying the score
+%handle for displaying the text press q to quit
 axisTitle = title('');
 font = 'Courier';
 large_text = 20;
@@ -53,8 +53,8 @@ set(axisTitle,'fontsize', large_text)
 set(axisTitle, 'Color', title_color);
 
 %set size of the graphics window
-axis([0 200 0 324]);
+axis([0 100 0 100]);
 axis off;
-heroPlot = patch(NaN,NaN,'b');
-set(heroPlot,'LineWidth', 2);
-set(heroPlot,'EdgeColor', 'red');
+pongPlot = patch(NaN,NaN,'g');
+set(pongPlot,'LineWidth', 1);
+set(pongPlot,'EdgeColor', 'w');
