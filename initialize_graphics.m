@@ -1,4 +1,5 @@
 function [mainAxis, PAD, pongPlot, PAD_W, PAD_H, axisTitle] = initialize_graphics()
+
 %initialize_graphics creates the graphic environment for the hero
 %Input arguments
 %   none
@@ -8,7 +9,9 @@ function [mainAxis, PAD, pongPlot, PAD_W, PAD_H, axisTitle] = initialize_graphic
 %   heroPlot - patch object for the paddle
 %   PAD_W - width of the paddle
 %   PAD_H - height of the paddle
-%   handle to the axis title
+%   PAD2 = OUTLINE OF P2 PADDLE
+%   PAD_W2 - WIDTH OF P2 PADDLE
+%   PAD_H2 = HEIGHT OF P2 PADDLE
 
 PADDLE_START_Y = 50; %paddle start position
 PAD_W = 3; %paddle width
@@ -18,10 +21,18 @@ PAD_SHAPE = [0 0 0 0 1 1 1 1; ... %x values
 xScale = PAD_W / max(PAD_SHAPE(1,:));
 yScale = PAD_H / max(PAD_SHAPE(2,:));
 
-%coordinats for drawing hero at 0,0.
-%scale hero so that he's HERO_W wide and HERO_H tall
-PAD = [PAD_SHAPE(1,:) .* xScale; PAD_SHAPE(2,:) .* yScale];
+PADDLE_START_Z = 75; %paddle start position
+PAD_W2 = 3; %paddle width
+PAD_H2 = 20; %paddle height
+PAD_SHAPE2 = [0 0 0 0 1 1 1 1; ... %x values
+  0 1 2 3 3 2 1 0];    %y values
+xScale2 = PAD_W2 / max(PAD_SHAPE2(1,:));
+yScale2 = PAD_H2 / max(PAD_SHAPE2(2,:));
 
+%coordinates for drawing hero at 0,0.
+%scale hero so that he's HERO_W wide and HERO_H tall
+PAD1 = [PAD_SHAPE(1,:) .* xScale; PAD_SHAPE(2,:) .* yScale];
+PAD2 = [ PAD_SHAPE2(1, :).*xScale2; PAD_SHAPE2(2,:).*yScale2];
 
 fig = figure;
 set(fig,'color','black');
