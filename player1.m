@@ -25,6 +25,14 @@ while quitGame == false
         pause(0.025)
 
         [mousePos] = get_mouse_position(mainAxis);
+        
+        fid =fopen('player2data' , 'w');
+        fprintf(fid, '%f' , mousePOS):
+        fclose(fid);
+        
+        fid = fopen( 'player2data' , 'r' );
+        pad2pos = fscanf(fid, '%f' , [1 , 2]);
+        fclose(fid); 
 
         draw_object(mainAxis, PAD, pongPlot, PAD_W, PAD_H, mousePos);
     end
