@@ -1,4 +1,4 @@
-function [mainAxis, PAD1, pongPlot, PAD_W, PAD_H, axisTitle, pongPlot2, PAD_W2, PAD_H2, PAD2, PongBall, BallHeight, BallWidth, BallPlot] = initialize_graphics()
+function [mainAxis, PAD1, pongPlot, PAD_W, PAD_H, axisTitle, pongPlot2, PAD_W2, PAD_H2, PAD2] = initialize_graphics()
 
 %initialize_graphics creates the graphic environment for the hero
 %Input arguments
@@ -34,10 +34,10 @@ PAD1 = [PAD_SHAPE(1,:) .* xScale; PAD_SHAPE(2,:) .* yScale];
 PAD2 = [PAD_SHAPE2(1,:).*xScale2; PAD_SHAPE2(2,:).*yScale2];
 
 % Pong Ball
-BallStart = 60;     % ball start position
-BallWidth = 10;
-BallHeight = 10;
-BallShape = [0 0 0 0 1 1 1 1; 0 1 2 3 3 2 1 0];
+BallStart = 60;     % bal start position
+BallWidth = 2;
+BallHeight = 2;
+BallShape = [1 1 1 ; 1 1 1 ];
 BallXScale = BallWidth / max(BallShape(1,:));
 BallYScale = BallWidth / max(BallShape(2,:));
 
@@ -86,3 +86,6 @@ set(pongPlot2,'EdgeColor', 'w');
 BallPlot = patch(NaN, NaN, 'y');
 set(BallPlot, 'LineWidth', 1);
 set(BallPlot, 'EdgeColor', 'y'); 
+
+% Pong Ball
+PongBall = line('color' , 'yellow' , 'marker' , '.' ,'markersize' , 50);
