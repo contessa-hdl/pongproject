@@ -5,7 +5,7 @@ function [mainAxis, PAD1, pongPlot, PAD_W, PAD_H, axisTitle, pongPlot2, PAD_W2, 
 %   none
 %Output arguments
 %   mainAxis - handle to the axes object
-%   PAD - outline of the paddlee
+%   PAD - outline of the paddle
 %   PAD_W - width of the paddle
 %   PAD_H - height of the paddle
 %   PAD2 = OUTLINE OF P2 PADDLE
@@ -27,11 +27,22 @@ PAD_SHAPE2 = [0 0 0 0 1 1 1 1 ;     %X VALUES
     0 1 2 3 3 2 1 0 ];  % Y VALUES
   xScale2 = PAD_W2 / max(PAD_SHAPE2(1,:));
   yScale2 = PAD_H2 / max(PAD_SHAPE2(2,:));
-  
+
 %coordinates for drawing hero at 0,0.
-%scale hero so that he's HERO_W wide and HERO_H tall
+%scale pads so that they are Pad_w & Pad_H size tall
 PAD1 = [PAD_SHAPE(1,:) .* xScale; PAD_SHAPE(2,:) .* yScale];
 PAD2 = [PAD_SHAPE2(1,:).*xScale2; PAD_SHAPE2(2,:).*yScale2];
+
+% Pong Ball
+BallStart = 51;     % ball start position
+ballwidth = 2;
+ballheight = 2;
+ballshape = [1 1 1 ; 1 1 1 ];
+ballxscale = ballwidth / max(ballshape(1,:));
+ballyscale = ballwidth / max(ballshape(2,:)); 
+
+%scale ball 
+PongBall = [ballshape(1,:).*ballxscale; ballshape(2,:).* ballyscale];
 
 fig = figure;
 set(fig,'color','black');
@@ -73,5 +84,3 @@ pongPlot2 = patch(NaN,NaN,'g');
 set(pongPlot2,'LineWidth', 1);
 set(pongPlot2,'EdgeColor', 'w');
 
-% Pong Ball
-PongBall = line('color' , 'yellow' , 'marker' , '.' ,'markersize' , 50);
