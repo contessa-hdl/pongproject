@@ -34,7 +34,7 @@ PAD1 = [PAD_SHAPE(1,:) .* xScale; PAD_SHAPE(2,:) .* yScale];
 PAD2 = [PAD_SHAPE2(1,:).*xScale2; PAD_SHAPE2(2,:).*yScale2];
 
 % Pong Ball
-BallStart = 60;     % bal start position
+BallStart = 60;     % ball start position
 BallWidth = 10;
 BallHeight = 10;
 BallShape = [0 0 0 0 1 1 1 1; 0 1 2 3 3 2 1 0];
