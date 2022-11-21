@@ -35,9 +35,10 @@ PAD2 = [PAD_SHAPE2(1,:).*xScale2; PAD_SHAPE2(2,:).*yScale2];
 
 % Pong Ball
 BallStart = 60;     % ball start position
-BallWidth = 10;
-BallHeight = 10;
-BallShape = [0 0 0 0 1 1 1 1; 0 1 2 3 3 2 1 0];
+BallWidth = 2;
+BallHeight = 2;
+r3 = (sqrt(3)/2);
+BallShape = [1, r3,1/2, 0, -1/2, -(r3), -1, -(r3), -1/2, 0, 1/2, r3; 0, 1/2, r3, 1, r3,1/2, 0, -1/2, -(r3), -1, -(r3), -1/2];
 BallXScale = BallWidth / max(BallShape(1,:));
 BallYScale = BallWidth / max(BallShape(2,:));
 
